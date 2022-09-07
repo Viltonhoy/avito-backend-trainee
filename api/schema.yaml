@@ -1,0 +1,151 @@
+openapi: 3.0.0
+info: 
+  version: 1.0.0
+  title: server API
+  description: yaml file for description the response data
+
+paths: 
+  /api/{version}/getadlist:
+    parameters:
+      - $ref: '#/components/parameters/Version'
+
+    post:
+      summary: Get Ad List
+      operationId: GetAdList
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAdListRequest'
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAdListResponse'   
+
+  /api/{version}/createnewad:
+    parameters:
+      - $ref: '#/components/parameters/Version'
+
+    post:
+      summary: Create New Ad
+      operationId: CreateNewAd
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNewAdRequest'
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateNewAdResponse'    
+
+  /api/{version}/getad:
+    parameters:
+      - $ref: '#/components/parameters/Version'
+
+    post:
+      summary: Get Ad
+      operationId: GetAd
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAdRequest'
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAdResponse'  
+
+components:
+
+  parameters:
+    Version:
+      name: version
+      description: api version
+      in: path
+      schema:
+        type: integer
+      required: true
+
+  schema:
+
+    GetAdListRequest:
+      type: object
+      properties:
+
+    GetAdResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        result:
+          type: object
+          properties:
+            title:  
+              type: string
+            link:
+              type: string
+            price:
+              x-go-type: decimal.Decimal
+              x-go-type-import:
+                name: decimal
+                path: github.com/shopspring/decimal
+          required:
+            - title
+            - link
+            - price
+      required:
+        - status
+        - result
+
+    GetAdListResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetAdResponse' 
+      required:
+        - status
+        - result   
+
+    CreateNewAdResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+            result:
+              type: integer  
+          required:
+            - title
+            - link
+            - price
+      required:
+        - status
+        - result
+         
+
+                      
+    
