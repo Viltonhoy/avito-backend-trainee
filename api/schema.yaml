@@ -25,21 +25,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetAdListResponse'   
+                $ref: '#/components/schemas/GetAdListResponse'          
 
-  /api/{version}/createnewad:
+  /api/{version}/newad:
     parameters:
       - $ref: '#/components/parameters/Version'
 
     post:
-      summary: Create New Ad
-      operationId: CreateNewAd
+      summary: New Ad
+      operationId: NewAd
 
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateNewAdRequest'
+              $ref: '#/components/schemas/NewAdRequest'
 
       responses:
         200:
@@ -47,7 +47,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateNewAdResponse'    
+                $ref: '#/components/schemas/NewAdResponse'           
 
   /api/{version}/getad:
     parameters:
@@ -69,7 +69,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetAdResponse'  
+                $ref: '#/components/schemas/GetAdResponse'          
 
 components:
 
@@ -82,70 +82,92 @@ components:
         type: integer
       required: true
 
-  schema:
+  schemas:
 
-    GetAdListRequest:
+    GetAdRequest:
       type: object
       properties:
+        id:
+          type: integer
+        fields:
+          type: array
+          items:
+            type: string
+            enum: 
+              - description
+              - links  
+      required:
+        - id
+        - fields          
 
     GetAdResponse:
       type: object
       properties:
-        status:
+        title:  
           type: string
-        result:
-          type: object
-          properties:
-            title:  
-              type: string
-            link:
-              type: string
-            price:
-              x-go-type: decimal.Decimal
-              x-go-type-import:
-                name: decimal
-                path: github.com/shopspring/decimal
-          required:
-            - title
-            - link
-            - price
+        link:
+          type: string
+        price:
+          x-go-type: decimal.Decimal
+          x-go-type-import:
+            name: decimal
+            path: github.com/shopspring/decimal
       required:
-        - status
-        - result
+        - title
+        - link
+        - price
+
+    GetAdListRequest:
+      type: object
+      properties:
+        order:
+          x-go-type: storage.OrdBy
+          x-go-type-import:
+            name: OrdBy
+            path: avito-backend-trainee/internal/storage
+          nullable: true
+        offset:
+          type: integer
+        pagination:
+          type: string
+          nullable: true  
+      required:
+        - order
+        - offset
+        - pagination        
 
     GetAdListResponse:
       type: object
       properties:
-        status:
-          type: string
         result:
           type: array
           items:
             $ref: '#/components/schemas/GetAdResponse' 
       required:
-        - status
-        - result   
+        - result     
 
-    CreateNewAdResponse:
+    NewAdRequest:
       type: object
       properties:
-        status:
+        id:
+          type: integer
+        fields:
           type: string
-        result:
-          type: object
-          properties:
-            id:
-              type: integer
-            result:
-              type: integer  
-          required:
-            - title
-            - link
-            - price
+          nullable: true  
       required:
-        - status
-        - result
-         
+        - title
+        - link
+        - price
 
-                      
+    NewAdResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        code:
+          type: integer
+      required:
+        - id
+        - code
+                            
     
