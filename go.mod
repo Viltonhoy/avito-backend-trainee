@@ -6,6 +6,7 @@ require (
 	github.com/caarlos0/env/v6 v6.10.0
 	github.com/golang/mock v1.6.0
 	github.com/jackc/pgx/v4 v4.17.2
+	github.com/joho/godotenv v1.4.0
 	github.com/shopspring/decimal v1.3.1
 	go.uber.org/zap v1.23.0
 )
