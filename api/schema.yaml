@@ -165,6 +165,17 @@ components:
           format: int64
       required:
         - id
-        - code
+        - 
+        
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+      required:
+        - status
+        - message          
                             
     
