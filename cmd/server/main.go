@@ -23,15 +23,15 @@ func main() {
 
 	ctx := context.Background()
 
-	storage, err := storage.NewStorage(ctx, logger)
+	s, err := storage.NewStorage(ctx, logger)
 	if err != nil {
 		logger.Fatal("failed to create storage instance", zap.Error(err))
 	}
 
-	srv, err := server.Server(
+	srv, err := server.NewServer(
 		logger,
-		storage,
-		storage.Close,
+		s,
+		s.Close,
 	)
 
 	if err != nil {

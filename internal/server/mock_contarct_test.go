@@ -5,7 +5,6 @@
 package server
 
 import (
-	generated "avito-backend-trainee/internal/generated"
 	storage "avito-backend-trainee/internal/storage"
 	context "context"
 	reflect "reflect"
@@ -53,14 +52,14 @@ func (mr *MockStoragerMockRecorder) AddNewAd(ctx, name, description, links, pric
 }
 
 // ReadAd mocks base method.
-func (m *MockStorager) ReadAd(ctx context.Context, id int64, fields ...storage.AdditionalFields) (generated.GetAdResponse, error) {
+func (m *MockStorager) ReadAd(ctx context.Context, id int64, fields ...storage.AdditionalFields) (storage.GetAdResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, id}
 	for _, a := range fields {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "ReadAd", varargs...)
-	ret0, _ := ret[0].(generated.GetAdResponse)
+	ret0, _ := ret[0].(storage.GetAdResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

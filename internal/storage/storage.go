@@ -16,7 +16,7 @@ type Storage struct {
 	db     *pgxpool.Pool
 }
 
-func (s *Storage) NewStorage(ctx context.Context, logger *zap.Logger) (*Storage, error) {
+func NewStorage(ctx context.Context, logger *zap.Logger) (*Storage, error) {
 	if logger == nil {
 		return nil, errors.New("no logger provided")
 	}
